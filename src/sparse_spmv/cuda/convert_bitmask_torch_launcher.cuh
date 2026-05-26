@@ -1,6 +1,6 @@
 #include <torch/extension.h> 
 
-std::tuple<torch::Tensor, torch::Tensor, torch::Tensor>
+std::tuple<torch::Tensor, torch::Tensor, torch::Tensor, int, int>
 convert_bitmask(torch::Tensor M) {
     TORCH_CHECK(M.dim() == 2, "M must be a 2D tensor");
     TORCH_CHECK(M.dtype() == torch::kHalf, "M must be of type torch.float16");
