@@ -8,8 +8,9 @@ from importlib.metadata import version
 _cuda_dir = "cuda"
 _extension_convert_bitmask = load_inline(
     name='convert_bitmask_cpu_ext',
-    sources=[os.path.join(_cuda_dir,  'convert_bitmask_torch_launcher.cuh')],
-    extra_include_paths=[_cuda_dir],
+    cpp_sources='',
+    cuda_sources=[os.path.join(_cuda_dir,  'convert_bitmask_torch_launcher.cuh'), os.path.join(_cuda_dir,  'convert_bitmask.cuh')],
+    functions=['convert_bitmask'],
     verbose=True,
 )
 
