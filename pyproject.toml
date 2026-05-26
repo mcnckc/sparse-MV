@@ -36,6 +36,9 @@ test = [
     "pytest>=8.4.2",
 ]
 
+[tool.uv.build]
+packages = ["sparse_spmv"]
+
 [tool.uv]
 include = ["spmv/cuda/**/*.cuh"]
 
