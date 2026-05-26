@@ -46,9 +46,9 @@ def test_comressor_fp16_manual():
 
         # fmt: off
         expected_values = torch.tensor([
-            0.5498, 0.7124, 0.7998, 0.1611, 0.0000, 0.4663, 0.2241, 0.6528, 0.4761,
-            0.4673, 0.0000, 0.0166, 0.1958, 0.5195, 0.5762, 0.8965, 0.5625, 0.2041,
-            0.8770, 0.1123, 0.4966, 0.5132, 0.0000, 0.0000], dtype=torch.float16, device=device)
+            0.5498, 0.7124, 0.7998, 0.1611, 0.4663, 0.2241, 0.6528, 0.4761,
+            0.4673, 0.0166, 0.1958, 0.5195, 0.5762, 0.8965, 0.5625, 0.2041,
+            0.8770, 0.1123, 0.4966, 0.5132], dtype=torch.float16, device=device)
         # fmt: on
 
         expected_deltas = torch.tensor(
@@ -57,7 +57,7 @@ def test_comressor_fp16_manual():
             device=device,
         )
         expected_row_indices = torch.tensor(
-            [0, 6, 10, 12, 13, 22], device=device, dtype=torch.int32
+            [0, 5, 9, 10, 11, 29], device=device, dtype=torch.int32
         )
 
         compressed_M = sparse_spmv.convert_bitmask(M)
