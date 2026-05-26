@@ -6,9 +6,9 @@ torch::Tensor bitmask_spmv_launch(
     torch::Tensor M_values,
     torch::Tensor M_mask,
     torch::Tensor M_row_indices,
-    torch::Tensor V,
     int M_rows,
     int M_cols,
+    torch::Tensor V,
     float alpha,
     float beta)
 {

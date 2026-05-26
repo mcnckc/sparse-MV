@@ -62,12 +62,12 @@ def test_comressor_fp16_manual():
 
         compressed_M = sparse_spmv.convert_bitmask(M)
         print("DEBUG", compressed_M[0], compressed_M[0].dtype)
-        assert len(compressed_M) == 3
+        assert len(compressed_M) == 5
         assert torch.allclose(compressed_M[0], expected_values)
         #assert torch.allclose(compressed_M[1], expected_deltas)
         assert torch.allclose(compressed_M[2], expected_row_indices)
-        #assert compressed_M[3] == SAMPLE_MATRIX_ROWS
-        #assert compressed_M[4] == SAMPLE_MATRIX_COLS
+        assert compressed_M[3] == SAMPLE_MATRIX_ROWS
+        assert compressed_M[4] == SAMPLE_MATRIX_COLS
 
 
 def test_comressor_fp16_manual_empty():
@@ -96,12 +96,12 @@ def test_comressor_fp16_manual_empty():
         )
 
         compressed_M = sparse_spmv.convert_bitmask(M)
-        assert len(compressed_M) == 3
+        assert len(compressed_M) == 5
         assert torch.allclose(compressed_M[0], expected_values)
         #assert torch.allclose(compressed_M[1], expected_deltas)
         assert torch.allclose(compressed_M[2], expected_row_indices)
-        #assert compressed_M[3] == 3
-        #assert compressed_M[4] == 32
+        assert compressed_M[3] == 3
+        assert compressed_M[4] == 32
 
 
 def test_spmv_manual():
