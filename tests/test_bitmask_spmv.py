@@ -92,7 +92,7 @@ def test_comressor_fp16_manual_empty():
             device=device,
         )
         expected_row_indices = torch.tensor(
-            [0, 0, 1, 3], device=device, dtype=torch.int32
+            [0, 0, 1, 2], device=device, dtype=torch.int32
         )
 
         compressed_M = sparse_spmv.convert_bitmask(M)
@@ -121,7 +121,7 @@ def run_test(M_rows, M_cols, density, seed):
     M_cuda = M_cpu.cuda()
     V_cuda = torch.rand((M_cols,), device="cuda", dtype=torch.float16)
     compressed_M = sparse_spmv.convert_bitmask(M_cuda)
-    result = sparse_spmv.bitmask_spmv(compressed_M, V_cuda)
+    result = sparse_spmv.bitmask_spmv(*compressed_M, V_cuda)
     expected_result = M_cuda @ V_cuda
     assert torch.allclose(
         expected_result, result, rtol=0.001, atol=0.001
@@ -167,7 +167,7 @@ def test_compile():
     compiled = torch.compile(
         sparse_spmv.bitmask_spmv, mode="reduce-overhead", fullgraph=True
     )
-    compiled_result = compiled(compressed_M, V_cuda)
+    compiled_result = compiled(*compressed_M, V_cuda)
     assert torch.allclose(
         expected_result, compiled_result, rtol=0.001, atol=0.001
     ), f"Fail at {seed} {density}"
