@@ -71,7 +71,7 @@ def bitmask_spmv(
 """
 #Macko SPMV:
 
-LIB_NAME = "macko_spmv"
+LIB_NAME = "sparse_spmv"
 
 pkg_version = version(LIB_NAME).replace(".", "_")
 cuda_resources = resources.files(f"spmv.cuda")
