@@ -4,13 +4,20 @@ import torch
 from importlib import resources
 from importlib.metadata import version
 
+cuda_resources = resources.files(f"sparse_spmv.cuda")
+
+convert_source_code = cuda_resources.joinpath("convert_bitmask.cuh").read_text()
+convert_bitmask_launcher_source_code = cuda_resources.joinpath(
+    "convert_bitmask_torch_launcher.cuh"
+).read_text()
 
 _cuda_dir = "cuda"
 _extension_convert_bitmask = load_inline(
     name='convert_bitmask_cpu_ext',
     cpp_sources='',
-    cuda_sources=[os.path.join(_cuda_dir,  'convert_bitmask_torch_launcher.cuh'), os.path.join(_cuda_dir,  'convert_bitmask.cuh')],
+    cuda_sources=[convert_source_code + '\n' + convert_bitmask_launcher_source_code],
     functions=['convert_bitmask'],
+    with_cuda=True,
     verbose=True,
 )
 
@@ -27,12 +34,17 @@ def convert_bitmask(M):
         raise NotImplementedError()
 
 
+bitmask_source_code = cuda_resources.joinpath("bitmask_spmv.cuh").read_text()
+bitmask_launcher_source_code = cuda_resources.joinpath(
+    "bitmask_spmv_torch_launcher.cuh"
+).read_text()
 _bitmask_spmv_module = load_inline(
     name='bitmask_spmv_cuda_ext',
     cpp_sources='',    
-    cuda_sources=[os.path.join(_cuda_dir,  'bitmask_spmv_torch_launcher.cuh'), os.path.join(_cuda_dir,  'bitmask_spmv.cuh')],
+    cuda_sources=[bitmask_source_code + '\n' + bitmask_launcher_source_code],
     functions=['bitmask_spmv_launch'],
     extra_cuda_cflags=['-O3'],
+    with_cuda=True,
     verbose=False,
 )
 
@@ -74,7 +86,6 @@ def bitmask_spmv(
 LIB_NAME = "sparse_spmv"
 
 pkg_version = version(LIB_NAME).replace(".", "_")
-cuda_resources = resources.files(f"sparse_spmv.cuda")
 
 BUILD_DIRECTORY = os.environ.get("MACKO_SPMV_BUILD_DIRECTORY", "")
 
