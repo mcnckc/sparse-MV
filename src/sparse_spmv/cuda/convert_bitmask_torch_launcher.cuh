@@ -1,5 +1,4 @@
-#include <torch/extension.h>
-#include "convert_bitmask.cuh"  
+#include <torch/extension.h> 
 
 std::tuple<torch::Tensor, torch::Tensor, torch::Tensor>
 convert_bitmask(torch::Tensor M) {
