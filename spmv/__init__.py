@@ -4,7 +4,7 @@ import torch
 from importlib import resources
 from importlib.metadata import version
 
-
+"""
 _cuda_dir = "cuda"
 _extension_convert_bitmask = load_inline(
     name='convert_bitmask_cpu_ext',
@@ -46,7 +46,7 @@ def bitmask_spmv(
     alpha: float = 1.0,
     beta: float = 0.0,
 ) -> torch.Tensor:
-    """
+    
     Sparse matrix‑vector multiplication: C = alpha * (bitmask_matrix @ V) + beta * C
 
     Args:
@@ -59,7 +59,7 @@ def bitmask_spmv(
         alpha, beta: scalar floats (default: alpha=1, beta=0)
     Returns:
         C: float16 tensor of shape (M_rows,)
-    """
+    
     M_values = M_values.contiguous().cuda()
     M_mask = M_mask.contiguous().cuda()
     M_row_indices = M_row_indices.contiguous().cuda()
@@ -68,7 +68,7 @@ def bitmask_spmv(
     return _bitmask_spmv_module.bitmask_spmv_launch(
         M_values, M_mask, M_row_indices, M_rows, M_cols, V, alpha, beta
     )
-
+"""
 #Macko SPMV:
 
 LIB_NAME = "macko_spmv"
