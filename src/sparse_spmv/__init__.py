@@ -15,7 +15,6 @@ _cuda_dir = "cuda"
 _extension_convert_bitmask = load_inline(
     name='convert_bitmask_cpu_ext',
     cpp_sources=[convert_source_code + '\n' + convert_bitmask_launcher_source_code],
-    functions=['convert_bitmask'],
     with_cuda=True,
     verbose=True,
 )
@@ -41,7 +40,6 @@ _bitmask_spmv_module = load_inline(
     name='bitmask_spmv_cuda_ext',
     cpp_sources='',    
     cuda_sources=[bitmask_source_code + '\n' + bitmask_launcher_source_code],
-    functions=['bitmask_spmv_launch'],
     extra_cuda_cflags=['-O3'],
     with_cuda=True,
     verbose=False,
