@@ -5,7 +5,7 @@ from importlib import resources
 from importlib.metadata import version
 
 
-_cuda_dir = os.path.dirname(__file__)
+_cuda_dir = "cuda"
 _extension_convert_bitmask = load_inline(
     name='convert_bitmask_cpu_ext',
     sources=[os.path.join(_cuda_dir,  'convert_bitmask_torch_launcher.cuh')],
