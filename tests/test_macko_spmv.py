@@ -67,6 +67,7 @@ def test_comressor_fp16_manual():
         assert torch.allclose(compressed_M[2], expected_row_indices)
         assert compressed_M[3] == SAMPLE_MATRIX_ROWS
         assert compressed_M[4] == SAMPLE_MATRIX_COLS
+        print("TEST OK")
 
 
 def test_comressor_fp16_manual_empty():
@@ -161,7 +162,7 @@ def test_compile():
         expected_result, result, rtol=0.001, atol=0.001
     ), f"Fail at {seed} {density}"
 
-    print(torch.library.opcheck(torch.ops.sparse_spmv.multiply, args))
+    print(torch.library.opcheck(torch.ops.macko_spmv.multiply, args))
 
     compiled = torch.compile(
         sparse_spmv.multiply, mode="reduce-overhead", fullgraph=True

@@ -12,6 +12,7 @@ dependencies = [
     "numpy>=2.3.4",
     "torch==2.8.0",
     "transformers==4.55",
+    "ninja"
 ]
 
 [build-system]
