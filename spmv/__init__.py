@@ -74,7 +74,7 @@ def bitmask_spmv(
 LIB_NAME = "macko_spmv"
 
 pkg_version = version(LIB_NAME).replace(".", "_")
-cuda_resources = resources.files(f"{LIB_NAME}.cuda")
+cuda_resources = resources.files(f"spmv.cuda")
 
 BUILD_DIRECTORY = os.environ.get("MACKO_SPMV_BUILD_DIRECTORY", "")
 
