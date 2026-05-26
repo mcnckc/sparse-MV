@@ -1,7 +1,11 @@
 [project]
-name = "sparse-spmv"
-version = "0.1.0"
+name = "sparse_spmv"
+version = "0.2.0"
 description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "mcnckc", email = "s20b1gusev@gmail.com" }
+]
 requires-python = ">=3.12"
 dependencies = [
     "accelerate>=1.11.0",
