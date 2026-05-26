@@ -40,7 +40,4 @@ test = [
 packages = ["sparse_spmv"]
 
 [tool.uv]
-include = ["spmv/cuda/**/*.cuh"]
-
-[tool.uv.extra-build-dependencies]
-git = ["jinja2"]
+include = ["sparse_spmv/cuda/**/*.cuh"]
