@@ -41,7 +41,7 @@ convert_bitmask(torch::Tensor M) {
         values, {nnz}, 
         [values](void*) { delete[] values; }, options_val);
 
-    return std::make_tuple(row_tensor, mask_tensor, values_tensor);
+    return std::make_tuple(values_tensor, mask_tensor, row_tensor);
 }
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
