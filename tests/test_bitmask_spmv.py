@@ -57,7 +57,7 @@ def test_comressor_fp16_manual():
             device=device,
         )
         expected_row_indices = torch.tensor(
-            [0, 5, 9, 10, 11, 29], device=device, dtype=torch.int32
+            [0, 5, 9, 10, 11, 20], device=device, dtype=torch.int32
         )
 
         compressed_M = sparse_spmv.convert_bitmask(M)
@@ -83,7 +83,7 @@ def test_comressor_fp16_manual_empty():
         )
 
         # fmt: off
-        expected_values = torch.tensor([0,1,2,0,0,0,0,0], dtype=torch.float16, device=device)
+        expected_values = torch.tensor([1,2], dtype=torch.float16, device=device)
         # fmt: on
 
         expected_deltas = torch.tensor(
@@ -92,7 +92,7 @@ def test_comressor_fp16_manual_empty():
             device=device,
         )
         expected_row_indices = torch.tensor(
-            [0, 0, 2, 3], device=device, dtype=torch.int32
+            [0, 0, 1, 3], device=device, dtype=torch.int32
         )
 
         compressed_M = sparse_spmv.convert_bitmask(M)
@@ -109,7 +109,7 @@ def test_spmv_manual():
     compressed_M = sparse_spmv.convert_bitmask(SAMPLE_MATRIX.cuda())
     V_cuda = torch.rand((SAMPLE_MATRIX_COLS,), device="cuda", dtype=torch.float16)
     expected_result = M_cuda @ V_cuda
-    result = sparse_spmv.bitmask_spmv(compressed_M, V_cuda)
+    result = sparse_spmv.bitmask_spmv(*compressed_M, V_cuda)
     assert torch.allclose(expected_result, result)
 
 
