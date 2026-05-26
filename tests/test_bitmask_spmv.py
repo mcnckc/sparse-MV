@@ -156,7 +156,7 @@ def test_compile():
         compressed_M[4],
         V_cuda,
     )
-    result = sparse_spmv.bitmask_spmv(compressed_M, V_cuda)
+    result = sparse_spmv.bitmask_spmv(*compressed_M, V_cuda)
     expected_result = M_cuda @ V_cuda
     assert torch.allclose(
         expected_result, result, rtol=0.001, atol=0.001
@@ -172,7 +172,7 @@ def test_compile():
         expected_result, compiled_result, rtol=0.001, atol=0.001
     ), f"Fail at {seed} {density}"
 
-    f = lambda x: sparse_spmv.bitmask_spmv(compressed_M, x + 1) - 1
+    f = lambda x: sparse_spmv.bitmask_spmv(*compressed_M, x + 1) - 1
 
     f_c = torch.compile(f, mode="reduce-overhead", fullgraph=True)
     print(f_c(V_cuda))
