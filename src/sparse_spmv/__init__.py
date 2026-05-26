@@ -183,13 +183,20 @@ def _(a, b, c, d, e, f):
 
 
 def move_to_device(compressed, device):
-    return (
-        compressed[0].to(device=device),
-        compressed[1].to(device=device),
-        compressed[2].to(device=device),
-        compressed[3],
-        compressed[4],
-    )
+    if len(compressed) == 5:
+        return (
+            compressed[0].to(device=device),
+            compressed[1].to(device=device),
+            compressed[2].to(device=device),
+            compressed[3],
+            compressed[4],
+        )
+    else:
+        return (
+            compressed[0].to(device=device),
+            compressed[1].to(device=device),
+            compressed[2].to(device=device),
+        )
 
 
 def compress(M):

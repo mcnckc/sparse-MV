@@ -61,6 +61,7 @@ def test_comressor_fp16_manual():
         )
 
         compressed_M = sparse_spmv.convert_bitmask(M)
+        print("DEBUG", compressed_M.dtype, compressed_M[0].dtype)
         assert len(compressed_M) == 3
         assert torch.allclose(compressed_M[0], expected_values)
         #assert torch.allclose(compressed_M[1], expected_deltas)
